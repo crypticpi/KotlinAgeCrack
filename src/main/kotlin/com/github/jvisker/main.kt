@@ -28,7 +28,7 @@ DKW9oexyVCiMxKMpRhIHTJLBwHWV4ueMRCRCRTuzLYE
     var currentIndex = 0L
     val parallelism = 10000
     val passwordList =
-        File("/Users/jvisker/Downloads/rockyou.txt").readLines() //todo: could run out of memory if the list was too bit
+        File("/Users/jvisker/Downloads/rockyou.txt").readLines() //todo: could run out of memory if the list was too big
 
     ProgressBar("Running", passwordList.size.toLong()).use { pb ->
         passwordList.chunked(parallelism) {
