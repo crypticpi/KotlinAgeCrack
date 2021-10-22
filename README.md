@@ -4,6 +4,8 @@ Learn more about the age encryption project: https://github.com/FiloSottile/age
 
 This library is not mature. Nor will I likely update it. Use at your own risk.
 
+src/main.kt is the entry point
+
 ## TODO
 * Maybe implement encryption features
 * Create CLI tooling
