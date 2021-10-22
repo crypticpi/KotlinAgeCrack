@@ -1,4 +1,4 @@
-package org.example
+package com.github.jvisker
 
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
@@ -6,12 +6,12 @@ import org.apache.commons.codec.binary.Hex
 import org.junit.Test
 import java.util.*
 
-class HelloTest {
+class Tests {
 
     @Test
     fun scrypt() {
         val expected = Hex.decodeHex("7023bdcb3afd7348461c06cd81fd38ebfda8fbba904f8e3ea9b543f6545da1f2")
-        val actual = scryptExpand(
+        val actual = AgeScrypt.scryptExpand(
             passphraseBytes = "pleaseletmein".toByteArray(),
             saltBytes = "SodiumChloride".toByteArray(),
             N = 16384
@@ -25,7 +25,7 @@ class HelloTest {
         val salt = Hex.decodeHex("000102030405060708090a0b0c")
         val info = Hex.decodeHex("f0f1f2f3f4f5f6f7f8f9")
         val L = 42
-        val actual = hkdf(
+        val actual = AgeEncryption.hkdf(
             saltBytes = salt,
             labelBytes = info,
             fileKeyBytes = keying_material,
@@ -39,7 +39,7 @@ class HelloTest {
     @Test
     fun hmacVerify() {
         val expected = Hex.decodeHex("5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843")
-        val actual = hmac(
+        val actual = AgeEncryption.hmac(
             key = "Jefe".toByteArray(),
             message = "what do ya want for nothing?".toByteArray()
         )
@@ -47,14 +47,14 @@ class HelloTest {
 
         val key = "This is a key".toByteArray()
         val message = "This is data to be verified.".toByteArray()
-        val mac = hmac(
+        val mac = AgeEncryption.hmac(
             key = key,
             message = message
         )
 
-        assertTrue(verifyHmac(key, message, mac))
+        assertTrue(AgeEncryption.verifyHmac(key, message, mac))
         val badMac = ByteArray(32).apply { fill(1) }
-        assertFalse(verifyHmac(key, message,badMac))
+        assertFalse(AgeEncryption.verifyHmac(key, message, badMac))
     }
 
     @Test
